@@ -1,5 +1,6 @@
 package com.jpa.bookmanager.repository;
 
+import com.jpa.bookmanager.domain.Gender;
 import com.jpa.bookmanager.domain.User;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.util.Lists;
@@ -150,7 +151,32 @@ class UserRepositoryTest {
 
         // paging
         System.out.println("findByNameWithPaging: " + userRepository.findByName("kang", PageRequest.of(0, 1, Sort.by(Sort.Order.desc("id")))).getContent());
+    }
 
+    @Test
+    void insertAndUpdateTest() {
+        User user = new User();
+        user.setName("radiant");
+        user.setEmail("radiant@naver.com");
+
+        userRepository.save(user);
+
+        User user2 = userRepository.findById(1L).orElseThrow(RuntimeException::new);
+        user2.setName("rrrrrradiant");
+
+        userRepository.save(user2);
+    }
+
+    @Test
+    void enumTest() {
+        User user = userRepository.findById(1L).orElseThrow(RuntimeException::new);
+        user.setGender(Gender.MALE);
+
+        userRepository.save(user);
+
+        userRepository.findAll().forEach(System.out::println);
+
+        System.out.println(userRepository.findRowRecord().get("gender"));
     }
 
 }
