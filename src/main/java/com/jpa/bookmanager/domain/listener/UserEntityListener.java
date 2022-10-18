@@ -7,13 +7,12 @@ import com.jpa.bookmanager.support.BeanUtils;
 
 import javax.persistence.PostPersist;
 import javax.persistence.PostUpdate;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
 
+// EntityListener 에서는 스프링 Bean @Autowired 로 주입 불가
 public class UserEntityListener {
 
-    @PrePersist
-    @PreUpdate
+    @PostPersist
+    @PostUpdate
     public void prePersistAndPreUpdate(Object o) {
         UserHistoryRepository userHistoryRepository = BeanUtils.getBean(UserHistoryRepository.class);
 
