@@ -23,6 +23,8 @@ class UserRepositoryTest {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private UserHistoryRepository userHistoryRepository;
 
 //    @BeforeEach
 //    void init() {
@@ -200,5 +202,21 @@ class UserRepositoryTest {
         userRepository.save(user);
 
         System.out.println("to-be: " + userRepository.findAll().get(0));
+    }
+
+    @Test
+    void userHistoryTest() {
+        User user = new User();
+        user.setEmail("kang-new@fastcampus.com");
+        user.setName("kang-new");
+
+        userRepository.save(user);
+
+        user.setName("kang-new-new");
+
+        userRepository.save(user);
+
+        userHistoryRepository.findAll().forEach(System.out::println);
+
     }
 }

@@ -2,6 +2,7 @@ package com.jpa.bookmanager.domain;
 
 import com.jpa.bookmanager.domain.listener.Auditable;
 import com.jpa.bookmanager.domain.listener.MyEntityListener;
+import com.jpa.bookmanager.domain.listener.UserEntityListener;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -16,6 +17,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Entity
 //@EntityListeners(value = {MyEntityListener.class})
+@EntityListeners(value = {UserEntityListener.class})
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 //@EntityListeners(value = {MyEntityListener.class, AuditingEntityListener.class})
 //@Table(name = "user")
 //public class User implements Auditable {
