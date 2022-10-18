@@ -1,14 +1,11 @@
 package com.jpa.bookmanager.domain;
 
-import com.jpa.bookmanager.domain.listener.Auditable;
-import com.jpa.bookmanager.domain.listener.MyEntityListener;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -20,32 +17,19 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = true)
 //@EntityListeners(MyEntityListener.class)
 //@EntityListeners(value = {AuditingEntityListener.class})
-public class Book extends BaseEntity implements Auditable {
+public class Book extends BaseEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
-    private String author;
+    private String category;
 
-    @CreatedDate
-    @Column(updatable = false)
-    private LocalDateTime createdAt;
+    private Long authorId;
+    private Long publisherId;
 
-    @LastModifiedDate
-    private LocalDateTime updatedAt;
-
-/*
-    @PrePersist
-    public void prePersist() {
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
-    }
-
-    @PreUpdate
-    public void preUpdate() {
-        this.updatedAt = LocalDateTime.now();
-    }
-*/
+    @OneToOne(mappedBy = "book") // mappedBy 해당테이블에서 연관키를 더이상 가지지 않음
+    @ToString.Exclude // 순환 참조 예방
+    private BookReviewInfo bookReviewInfo;
 }

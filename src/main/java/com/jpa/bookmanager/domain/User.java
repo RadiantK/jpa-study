@@ -1,32 +1,23 @@
 package com.jpa.bookmanager.domain;
 
-import com.jpa.bookmanager.domain.listener.Auditable;
-import com.jpa.bookmanager.domain.listener.MyEntityListener;
 import com.jpa.bookmanager.domain.listener.UserEntityListener;
 import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Data
 @RequiredArgsConstructor
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-//@EntityListeners(value = {MyEntityListener.class})
 @EntityListeners(value = {UserEntityListener.class})
-@ToString(callSuper = true)
+@ToString(callSuper = true) // 상속받는 클래스의 값을 포함
 @EqualsAndHashCode(callSuper = true)
-//@EntityListeners(value = {MyEntityListener.class, AuditingEntityListener.class})
 //@Table(name = "user")
-//public class User implements Auditable {
-public class User extends BaseEntity implements Auditable {
+public class User extends BaseEntity{
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NonNull

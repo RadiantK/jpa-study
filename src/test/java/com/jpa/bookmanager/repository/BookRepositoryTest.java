@@ -17,14 +17,15 @@ public class BookRepositoryTest {
     void bookTest() {
         Book book1 = new Book();
         book1.setName("Jpa 패키지");
-        book1.setAuthor("패스트캠퍼스");
+        book1.setAuthorId(1L);
+        book1.setPublisherId(1L);
 
         bookRepository.save(book1);
 
         log.info("book1={}", bookRepository.findAll());
 
-        Book book2 = bookRepository.findById(6L).orElseThrow(RuntimeException::new);
-        book2.setAuthor("작성자");
+        Book book2 = bookRepository.findById(1L).orElseThrow(RuntimeException::new);
+        book2.setAuthorId(2L);
 
         bookRepository.save(book2);
 
