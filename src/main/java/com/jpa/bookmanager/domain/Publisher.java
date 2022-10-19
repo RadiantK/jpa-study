@@ -6,21 +6,24 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
 @Data
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public class UserHistory extends BaseEntity {
+public class Publisher extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
-    private String email;
 
-    @ManyToOne
-    private User user;
+//    @OneToMany(mappedBy = "publisher") // 하나만 사용 가능
+    @OneToMany
+    @JoinColumn(name = "publisher_id")
+    private List<Book> books = new ArrayList<>();
 }

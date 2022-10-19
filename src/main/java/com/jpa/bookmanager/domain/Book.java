@@ -9,6 +9,8 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -27,9 +29,16 @@ public class Book extends BaseEntity {
     private String category;
 
     private Long authorId;
-    private Long publisherId;
 
     @OneToOne(mappedBy = "book") // mappedBy 해당테이블에서 연관키를 더이상 가지지 않음
     @ToString.Exclude // 순환 참조 예방
     private BookReviewInfo bookReviewInfo;
+
+    @OneToMany
+    @JoinColumn(name = "book_id")
+    @ToString.Exclude
+    private List<Review> reviews = new ArrayList<>();
+
+    @ManyToOne
+    private Publisher publisher;
 }

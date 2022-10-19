@@ -227,7 +227,7 @@ class UserRepositoryTest {
         user.setGender(Gender.MALE);
         userRepository.save(user);
 
-        userHistoryRepository.findAll().forEach(System.out::println);
+//        userHistoryRepository.findAll().forEach(System.out::println);
 
         user.setName("daniel");
         userRepository.save(user);
@@ -235,10 +235,14 @@ class UserRepositoryTest {
         user.setEmail("daniel@naver.com");
         userRepository.save(user);
 
+        userHistoryRepository.findAll().forEach(System.out::println);
+
 //        userHistoryRepository.findByUserId(
 //                userRepository.findByEmail("daniel@naver.com").getId())
 //                .forEach(System.out::println);
 
         userRepository.findByEmail("daniel@naver.com").getUserHistories().forEach(System.out::println);
+
+        System.out.println("UserHistory.getUser(): " + userHistoryRepository.findAll().get(0).getUser());
     }
 }

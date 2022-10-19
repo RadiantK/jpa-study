@@ -7,5 +7,5 @@ spring:
     properties:
       hibernate:
         format_sql: true
-#spring boot 2.5버전 이후 Hibernate 초기화 -> data.sql script에서 data.sql script 실행 -> Hibernate 초기화로 변경
+    #spring boot 2.5버전 이후 Hibernate 초기화 -> data.sql script에서 data.sql script 실행 -> Hibernate 초기화로 변경
     defer-datasource-initialization: true
