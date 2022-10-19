@@ -48,7 +48,7 @@ class BookReviewInfoRepositoryTest {
     private Book createBook() {
         Book book = new Book();
         book.setName("Jpa 패키지");
-        book.setAuthorId(1L);
+//        book.setAuthorId(1L);
 //        book.setPublisherId(1L);
 
         Book saveBook = bookRepository.save(book);
