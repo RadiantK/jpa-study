@@ -9,3 +9,20 @@ spring:
         format_sql: true
     #spring boot 2.5버전 이후 Hibernate 초기화 -> data.sql script에서 data.sql script 실행 -> Hibernate 초기화로 변경
     defer-datasource-initialization: true
+    # 데이터를 근거로 서버 시작지점에 ddl문을 생성해서 db에 적용
+    generate-ddl: false
+    # 데이터베이스 스키마 자동 생성하기(초기화 전략 설정)
+    hibernate:
+      ddl-auto: create-drop
+  # dataSource 설정
+  datasource:
+    url: jdbc:mysql://localhost:3306/book_manager
+    username: jpafast
+    password: jpafast
+
+  # data.sql사용을 위해서 추가
+  sql:
+    init:
+      mode: always
+
+

@@ -19,6 +19,7 @@ import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatc
 
 @Slf4j
 @SpringBootTest // SpringContext를 로딩해서 Bean을 생성하고 주입
+@Transactional
 class UserRepositoryTest {
 
     @Autowired

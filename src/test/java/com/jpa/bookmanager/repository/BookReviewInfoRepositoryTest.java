@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @SpringBootTest
@@ -17,9 +18,10 @@ class BookReviewInfoRepositoryTest {
     BookRepository bookRepository;
 
     @Test
+    @Transactional
     void crudTest() {
         BookReviewInfo bookReviewInfo = new BookReviewInfo();
-        bookReviewInfo.setBook(new Book());
+        bookReviewInfo.setBook(createBook());
         bookReviewInfo.setAverageReviewScore(4.5f);
         bookReviewInfo.setReviewCount(2);
 
@@ -28,6 +30,7 @@ class BookReviewInfoRepositoryTest {
         log.info("bookReviewInfo={}", bookReviewInfoRepository.findAll());
     }
 
+/*
     @Test
     void crudTest2() {
         createBookReviewInfo();
@@ -44,6 +47,7 @@ class BookReviewInfoRepositoryTest {
                 .getBookReviewInfo();
         log.info("BookReviewInfo result2={}", result2);
     }
+*/
 
     private Book createBook() {
         Book book = new Book();
