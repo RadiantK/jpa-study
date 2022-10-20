@@ -8,7 +8,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
 
 @Slf4j
 @SpringBootTest
@@ -114,6 +117,30 @@ public class BookRepositoryTest {
 //        bookRepository.findByCategoryIsNull().forEach(System.out::println);
 //        bookRepository.findAllByDeletedFalse().forEach(System.out::println);
 //        bookRepository.findByCategoryIsNullAndDeletedFalse().forEach(System.out::println);
+    }
+
+    @Test
+    void queryTest() {
+        bookRepository.findAll().forEach(System.out::println);
+
+        System.out.println(
+                "bookRepository.findByCategoryIsNullAndNameEqualsAndCreatedAtGreaterThanEqualAndUpdatedAtGreaterThanEqual() = " + bookRepository.findByCategoryIsNullAndNameEqualsAndCreatedAtGreaterThanEqualAndUpdatedAtGreaterThanEqual(
+                        "JPA 패키지", LocalDateTime.now().minusDays(1L), LocalDateTime.now().minusDays(1L)));
+
+        System.out.println("findByNameRecently: " + bookRepository.findByNameRecently("JPA 패키지", LocalDateTime.now().minusDays(1L), LocalDateTime.now().minusDays(1L)));
+
+        System.out.println("bookNameAndCategory: " + bookRepository.findBookNameAndCategory());
+        bookRepository.findBookNameAndCategory().forEach(b -> {
+            System.out.println(b.getName() + ", " + b.getCategory());
+        });
+    }
+
+    @Test
+    void pageableTest() {
+        bookRepository.findBookNameAndCategory("%" + "Spring" + "%" , PageRequest.of(0, 1))
+                .forEach(b -> {
+                    System.out.println(b.getName() + ", " + b.getCategory());
+                });
     }
 
     private void givenBookAndReview() {

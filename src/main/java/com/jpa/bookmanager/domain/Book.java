@@ -52,4 +52,5 @@ public class Book extends BaseEntity {
     public void addBookAndAuthors(BookAndAuthor ...bookAndAuthors) {
         Collections.addAll(this.bookAndAuthors, bookAndAuthors);
     }
+
 }
