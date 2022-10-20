@@ -23,7 +23,12 @@ public class Publisher extends BaseEntity {
     private String name;
 
 //    @OneToMany(mappedBy = "publisher") // 하나만 사용 가능
-    @OneToMany
+    @OneToMany(orphanRemoval = true)
     @JoinColumn(name = "publisher_id")
+    @ToString.Exclude
     private List<Book> books = new ArrayList<>();
+
+    public void addBook(Book book) {
+        this.books.add(book);
+    }
 }
