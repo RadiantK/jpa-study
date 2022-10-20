@@ -4,6 +4,7 @@ import com.jpa.bookmanager.domain.Book;
 import com.jpa.bookmanager.domain.Publisher;
 import com.jpa.bookmanager.domain.Review;
 import com.jpa.bookmanager.domain.User;
+import com.jpa.bookmanager.repository.dto.BookStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Slf4j
 @SpringBootTest
@@ -143,6 +145,40 @@ public class BookRepositoryTest {
                 });
     }
 
+    @Test
+    @Transactional
+    void nativeQueryTest() {
+//        bookRepository.findAll().forEach(System.out::println);
+//        bookRepository.findAllCustom().forEach(System.out::println);
+
+        List<Book> books = bookRepository.findAll();
+
+        for (Book book : books) {
+            book.setCategory("IT전문서");
+        }
+
+        bookRepository.saveAll(books);
+        System.out.println(bookRepository.findAll());
+
+        System.out.println(bookRepository.updateCategories());
+        bookRepository.findAllCustom().forEach(System.out::println);
+    }
+
+    @Test
+    void converterTest() {
+        bookRepository.findAll().forEach(System.out::println);
+
+        Book book = new Book();
+        book.setName("또다른 IT전문서적");
+        book.setStatus(new BookStatus(200));
+
+        bookRepository.save(book);
+
+        System.out.println(bookRepository.findRowRecode().values());
+
+        bookRepository.findAll().forEach(System.out::println);
+    }
+
     private void givenBookAndReview() {
         givenReview(givenUser(), givenBook(givenPublisher()));
     }
@@ -175,4 +211,5 @@ public class BookRepositoryTest {
 
         reviewRepository.save(review);
     }
+
 }

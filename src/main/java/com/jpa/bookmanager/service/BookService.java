@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -44,5 +46,14 @@ public class BookService {
         Book book = bookRepository.findById(id).get();
         book.setName("바뀌는가?");
         bookRepository.save(book);
+    }
+
+    @Transactional
+    public List<Book> getAll() {
+        List<Book> books = bookRepository.findAll();
+
+        books.forEach(b -> log.info("log books={}", b));
+
+        return books;
     }
 }

@@ -11,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 import javax.persistence.Tuple;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 public interface BookRepository extends JpaRepository<Book, Long> {
 
@@ -42,4 +43,16 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     @Query(value = "select new com.jpa.bookmanager.repository.dto.BookNameAndCategory(b.name, b.category) from Book b where b.name like :name")
     List<BookNameAndCategory> findBookNameAndCategory(@Param("name") String name, Pageable pageable);
 
+    @Query(value = "select * from book", nativeQuery = true)
+    List<Book> findAllCustom();
+
+    @Modifying
+    @Query(value = "update book set category = 'IT전문서'", nativeQuery = true)
+    int updateCategories();
+
+    @Query(value = "show tables", nativeQuery = true)
+    List<String> showTables();
+
+    @Query(value = "select * from book order by id desc limit 1", nativeQuery = true)
+    Map<String, Object> findRowRecode();
 }

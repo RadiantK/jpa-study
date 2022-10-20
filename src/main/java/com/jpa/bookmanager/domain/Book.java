@@ -1,5 +1,7 @@
 package com.jpa.bookmanager.domain;
 
+import com.jpa.bookmanager.repository.converter.BookStatusConverter;
+import com.jpa.bookmanager.repository.dto.BookStatus;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -48,6 +50,9 @@ public class Book extends BaseEntity {
     private List<BookAndAuthor> bookAndAuthors = new ArrayList<>();
 
     private boolean deleted;
+
+//    @Convert(converter = BookStatusConverter.class) // autoApply를 사용하지 않을 때
+    private BookStatus status; // 판매 상태
 
     public void addBookAndAuthors(BookAndAuthor ...bookAndAuthors) {
         Collections.addAll(this.bookAndAuthors, bookAndAuthors);

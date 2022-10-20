@@ -44,4 +44,11 @@ class BookServiceTest {
 
         log.info(">>>{}", bookRepository.findAll());
     }
+
+    @Test
+    void converterErrorTest() {
+        bookService.getAll();
+
+        bookRepository.findAll().forEach(b -> log.info("log books={}", b));
+    }
 }
